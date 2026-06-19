@@ -1,0 +1,46 @@
+# Waktu dalam detik sebelum server restart
+restart-time-seconds: 43200
+
+# Command yang dieksekusi saat waktu habis
+restart-command: "restart"
+
+warning-times-seconds:
+  - 3600
+  - 1800
+  - 600
+  - 300
+  - 60
+  - 30
+  - 10
+  - 5
+  - 4
+  - 3
+  - 2
+  - 1
+
+# Peringatan di Action Bar (teks kecil di atas hotbar item) untuk detik-detik terakhir
+action-bar-countdown: true
+action-bar-starts-at: 10
+
+messages:
+  # Pesan peringatan (Gunakan %time% untuk format waktunya)
+  # &#FF3333 adalah warna Custom (HEX Color) Merah yang lebih eksklusif dan cerah!
+  warning: "&8[&#FF3333&lRUMAH KITA&8] &fServer akan restart dalam &#FF3333%time%&f!"
+  
+  # Pesan saat detik terakhir server dimatikan
+  restarting: "&8[&#FF3333&lRUMAH KITA&8] &fMenyimpan data dan merestart server sekarang..."
+  
+  # Pesan alasan saat player ditendang/dikick
+  kick-message: "&#FF3333&lSERVER RESTARTING!\n\n&fMohon tunggu beberapa menit\ndan silahkan masuk kembali ke server."
+
+# Fitur teks besar melayang di tengah layar (Title & Subtitle)
+title-alerts:
+  enabled: true
+  title: "&#FF3333&lRESTART SERVER"
+  subtitle: "&fServer akan restart dalam &#FF3333%time%&f!"
+
+# Fitur efek suara saat peringatan muncul
+sounds:
+  enabled: true
+  warning-sound: "BLOCK_NOTE_BLOCK_PLING"
+  restart-sound: "ENTITY_ENDER_DRAGON_GROWL"
