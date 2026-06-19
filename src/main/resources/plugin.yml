@@ -4,9 +4,9 @@ main: dev.rumahkita.autorestart.AutoRestartPlugin
 api-version: '1.13'
 commands:
   autorestart:
-    description: Cek waktu restart atau reload config.
+    description: Check restart time or reload config.
     aliases: [ar]
 permissions:
   autorestart.admin:
-    description: Mengijinkan penggunaan command autorestart.
+    description: Allows the use of the autorestart command.
     default: op

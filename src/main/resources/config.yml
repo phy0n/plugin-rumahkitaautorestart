@@ -1,7 +1,7 @@
-# Waktu dalam detik sebelum server restart
+# Time in seconds before the server restarts
 restart-time-seconds: 43200
 
-# Command yang dieksekusi saat waktu habis
+# Command to execute when the time runs out
 restart-command: "restart"
 
 warning-times-seconds:
@@ -18,28 +18,27 @@ warning-times-seconds:
   - 2
   - 1
 
-# Peringatan di Action Bar (teks kecil di atas hotbar item) untuk detik-detik terakhir
+# Warning in Action Bar for the last few seconds
 action-bar-countdown: true
 action-bar-starts-at: 10
 
 messages:
-  # Pesan peringatan (Gunakan %time% untuk format waktunya)
-  # &#FF3333 adalah warna Custom (HEX Color) Merah yang lebih eksklusif dan cerah!
-  warning: "&8[&#FF3333&lRUMAH KITA&8] &fServer akan restart dalam &#FF3333%time%&f!"
+  # Warning message (Use %time% for formatted time)
+  warning: "&8[&#FF3333&lRUMAH KITA&8] &7Server will restart in &#FFC000%time%&7!"
   
-  # Pesan saat detik terakhir server dimatikan
-  restarting: "&8[&#FF3333&lRUMAH KITA&8] &fMenyimpan data dan merestart server sekarang..."
+  # Message when the server shuts down
+  restarting: "&8[&#FF3333&lRUMAH KITA&8] &#FF5555Saving data and restarting server now..."
   
-  # Pesan alasan saat player ditendang/dikick
-  kick-message: "&#FF3333&lSERVER RESTARTING!\n\n&fMohon tunggu beberapa menit\ndan silahkan masuk kembali ke server."
+  # Kick reason message
+  kick-message: "&#FF3333&lSERVER RESTARTING!\n\n&7Please wait a few minutes\n&7and rejoin the server."
 
-# Fitur teks besar melayang di tengah layar (Title & Subtitle)
+# Large screen text alerts (Title & Subtitle)
 title-alerts:
   enabled: true
-  title: "&#FF3333&lRESTART SERVER"
-  subtitle: "&fServer akan restart dalam &#FF3333%time%&f!"
+  title: "&#FF3333&lSERVER &f&lRESTART"
+  subtitle: "&7Restarting in &#FFC000%time%&7!"
 
-# Fitur efek suara saat peringatan muncul
+# Sound effects when warnings appear
 sounds:
   enabled: true
   warning-sound: "BLOCK_NOTE_BLOCK_PLING"

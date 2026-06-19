@@ -20,7 +20,7 @@ public final class AutoRestartPlugin extends JavaPlugin implements CommandExecut
         saveDefaultConfig();
         startCountdown();
         getCommand("autorestart").setExecutor(this);
-        getLogger().info("Sistem AutoRestart RumahKita berhasil diaktifkan!");
+        getLogger().info("RumahKita AutoRestart system has been enabled!");
     }
 
     @Override
@@ -28,7 +28,7 @@ public final class AutoRestartPlugin extends JavaPlugin implements CommandExecut
         if (countdownTask != null) {
             countdownTask.cancel();
         }
-        getLogger().info("Sistem AutoRestart RumahKita berhasil dimatikan.");
+        getLogger().info("RumahKita AutoRestart system has been disabled.");
     }
 
     private void startCountdown() {
@@ -66,13 +66,13 @@ public final class AutoRestartPlugin extends JavaPlugin implements CommandExecut
                 }
                 
                 if (warnTimes.contains(timeLeft)) {
-                    String message = getConfig().getString("messages.warning", "&eServer akan restart dalam &c%time%&e!");
+                    String message = getConfig().getString("messages.warning", "&eServer will restart in &c%time%&e!");
                     message = message.replace("%time%", formatTime(timeLeft));
                     Bukkit.broadcastMessage(color(message));
 
                     if (getConfig().getBoolean("title-alerts.enabled", true)) {
-                        String title = color(getConfig().getString("title-alerts.title", "&c&lRESTART SERVER"));
-                        String subtitle = color(getConfig().getString("title-alerts.subtitle", "&fServer akan restart dalam &e%time%&f!")).replace("%time%", formatTime(timeLeft));
+                        String title = color(getConfig().getString("title-alerts.title", "&c&lSERVER RESTART"));
+                        String subtitle = color(getConfig().getString("title-alerts.subtitle", "&fServer will restart in &e%time%&f!")).replace("%time%", formatTime(timeLeft));
                         for (org.bukkit.entity.Player p : Bukkit.getOnlinePlayers()) {
                             p.sendTitle(title, subtitle, 10, 70, 20);
                         }
@@ -89,7 +89,7 @@ public final class AutoRestartPlugin extends JavaPlugin implements CommandExecut
                 }
 
                 if (getConfig().getBoolean("action-bar-countdown", true) && timeLeft <= getConfig().getInt("action-bar-starts-at", 10)) {
-                    String actionMsg = color("&#FF3333&lRestart dalam " + timeLeft + " detik...");
+                    String actionMsg = color("&#FF3333&lRestarting &8» &#FFC000" + timeLeft + "s");
                     net.md_5.bungee.api.chat.TextComponent tc = new net.md_5.bungee.api.chat.TextComponent(actionMsg);
                     for (org.bukkit.entity.Player p : Bukkit.getOnlinePlayers()) {
                         p.spigot().sendMessage(net.md_5.bungee.api.ChatMessageType.ACTION_BAR, tc);
@@ -108,13 +108,13 @@ public final class AutoRestartPlugin extends JavaPlugin implements CommandExecut
         int s = seconds % 60;
         
         StringBuilder sb = new StringBuilder();
-        if (h > 0) sb.append(h).append(" jam ");
-        if (m > 0) sb.append(m).append(" menit ");
-        if (s > 0) sb.append(s).append(" detik");
+        if (h > 0) sb.append(h).append(h == 1 ? " hour " : " hours ");
+        if (m > 0) sb.append(m).append(m == 1 ? " minute " : " minutes ");
+        if (s > 0) sb.append(s).append(s == 1 ? " second" : " seconds");
         
         return sb.toString().trim();
     }
-
+    
     private String color(String msg) {
         if (msg == null) return "";
         java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("&#[a-fA-F0-9]{6}");
@@ -130,24 +130,24 @@ public final class AutoRestartPlugin extends JavaPlugin implements CommandExecut
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!sender.hasPermission("autorestart.admin")) {
-            sender.sendMessage(color("&cKamu tidak memiliki akses untuk command ini."));
+            sender.sendMessage(color("&cYou do not have permission to use this command."));
             return true;
         }
 
         if (args.length == 0) {
-            sender.sendMessage(color("&cPenggunaan: /autorestart [time | reload | now <detik>]"));
+            sender.sendMessage(color("&cUsage: /autorestart [time | reload | now <seconds>]"));
             return true;
         }
 
         if (args[0].equalsIgnoreCase("time")) {
-            sender.sendMessage(color("&#FF3333&lRUMAH KITA &8| &fWaktu sebelum restart: &e" + formatTime(timeLeft)));
+            sender.sendMessage(color("&#FF3333&lRUMAH KITA &8| &7Time before restart: &#FFC000" + formatTime(timeLeft)));
             return true;
         }
 
         if (args[0].equalsIgnoreCase("reload")) {
             reloadConfig();
             startCountdown(); 
-            sender.sendMessage(color("&#33FF33Config AutoRestart berhasil di-reload dan timer direset!"));
+            sender.sendMessage(color("&#FF3333&lRUMAH KITA &8| &#33FF33Config reloaded & timer reset!"));
             return true;
         }
 
@@ -156,18 +156,18 @@ public final class AutoRestartPlugin extends JavaPlugin implements CommandExecut
                 try {
                     int newTime = Integer.parseInt(args[1]);
                     timeLeft = newTime;
-                    sender.sendMessage(color("&#FF3333&lRUMAH KITA &8| &fWaktu restart diubah menjadi &e" + formatTime(newTime) + "&f!"));
+                    sender.sendMessage(color("&#FF3333&lRUMAH KITA &8| &7Restart time changed to &#FFC000" + formatTime(newTime) + "&7!"));
                 } catch (NumberFormatException e) {
-                    sender.sendMessage(color("&cMohon masukkan angka detik yang valid!"));
+                    sender.sendMessage(color("&#FF3333&lRUMAH KITA &8| &#FF5555Please enter a valid number of seconds!"));
                 }
             } else {
                 timeLeft = 0; 
-                sender.sendMessage(color("&#FF3333&lRUMAH KITA &8| &cMemaksa restart sekarang!"));
+                sender.sendMessage(color("&#FF3333&lRUMAH KITA &8| &#FF5555Forcing restart now!"));
             }
             return true;
         }
 
-        sender.sendMessage(color("&cPenggunaan: /autorestart [time | reload | now <detik>]"));
+        sender.sendMessage(color("&cUsage: /autorestart [time | reload | now <seconds>]"));
         return true;
     }
 }
